@@ -1,6 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-}
+  reactStrictMode: false,
+  images: {
+    domains: ['lecture-1.vercal.app', 'search.pstatic.net'],
+  },
+  webpack: (config) => {
+    // 아래를 추가합니다.
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    });
+    return config;
+  },
+  i18n: {
+    locales: ['kr'],
+    defaultLocale: 'kr',
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

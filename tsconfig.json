@@ -13,10 +13,20 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".", //기본 경로
+
     "paths": {
-      "@/*": ["./*"]
+      "@hooks/*": ["hooks/*"],
+      "@components/*": ["components/*"],
+      "@layouts/*": ["layouts/*"],
+      "@pages/*": ["pages/*"],
+      "@utils/*": ["utils/*"],
+      "@typings/*": ["typings/*"],
+      "@img/*": ["public/images/*"],
+      "@svg/*": ["public/svgs/*"],
+      "@swr/*": ["swr/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "custom.d.ts", "components/Map", "components/Markers"],
   "exclude": ["node_modules"]
 }
