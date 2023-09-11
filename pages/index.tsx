@@ -20,6 +20,7 @@ const Home: NextPage<Props> = ({ stores }) => {
   useEffect(() => {
     initializeStores(stores);
   }, [initializeStores, stores]);
+  console.log('a', process.env.NEXT_PUBLIC_API_URL);
 
   return (
     <Fragment>
