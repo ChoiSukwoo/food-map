@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://inflearn-nextjs.vercel.app
+Host: https://foodmap.sukwoo.kr
 
 # Sitemaps
-Sitemap: https://inflearn-nextjs.vercel.app/sitemap.xml
+Sitemap: https://foodmap.sukwoo.kr/sitemap.xml
