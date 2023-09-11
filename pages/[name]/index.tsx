@@ -34,11 +34,11 @@ const StoreDetail: NextPage<Props> = ({ store }) => {
   return (
     <main>
       <NextSeo
-        title="피드백"
-        description="매장 지도 서비스에 대한 피드백을 받습니다."
-        canonical="https://foodmap.sukwoo.kr/feedback"
+        title={store.name}
+        description="Next.js 시작하기 강의를 위한 매장 상세 페이지입니다."
+        canonical={`https://foodmap.sukwoo.kr/${store.name}`}
         openGraph={{
-          url: 'https://foodmap.sukwoo.kr/feedback',
+          url: `https://foodmap.sukwoo.kr/${store.name}`,
         }}
       />
       <DetailHeader currentStore={store} expanded={expanded} onClickArrow={goToMap} />
