@@ -25,7 +25,7 @@ const Home: NextPage<Props> = ({ stores }) => {
     <Fragment>
       <NextSeo
         title="매장 지도"
-        description="Next.js 시작하기 강의를 위한 매장 지도 서비스입니다."
+        description="Next.js 네이버 지도 샘플 프로젝트"
         canonical="https://foodmap.sukwoo.kr"
         openGraph={{
           url: 'https://foodmap.sukwoo.kr',

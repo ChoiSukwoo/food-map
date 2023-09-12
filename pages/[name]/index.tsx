@@ -6,9 +6,6 @@ import DetailHeader from '@components/DetailHeader';
 import DetailContent from '@components/DetailContent';
 import useCurrentStore from '@swr/useCurrentStore';
 import { NextSeo } from 'next-seo';
-// import { NextSeo } from 'next-seo';
-
-// import styles from '../styles/detail.module.scss';
 
 interface Props {
   store: StoreDto;
@@ -35,7 +32,7 @@ const StoreDetail: NextPage<Props> = ({ store }) => {
     <main>
       <NextSeo
         title={store.name}
-        description="Next.js 시작하기 강의를 위한 매장 상세 페이지입니다."
+        description="Next.js 네이버 지도 샘플 프로젝트 - 매장 상세 페이지"
         canonical={`https://foodmap.sukwoo.kr/${store.name}`}
         openGraph={{
           url: `https://foodmap.sukwoo.kr/${store.name}`,
@@ -56,8 +53,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const stores = (await import('public/json/stores.json')).default;
-  const store = stores.find((store) => store.name === params?.name);
+  const store = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/store/${params?.name}`).then((response) =>
+    response.json(),
+  );
 
   if (!store) {
     return {

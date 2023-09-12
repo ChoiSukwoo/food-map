@@ -1,4 +1,4 @@
-export interface Feedback {
+export interface FeedbackDTO {
   content: string;
   timestamp: number;
 }
