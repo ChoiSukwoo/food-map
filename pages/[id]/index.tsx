@@ -46,13 +46,13 @@ const StoreDetail: NextPage<Props> = ({ store }) => {
 export default StoreDetail;
 
 /** https://nextjs.org/docs/basic-features/data-fetching/get-static-paths */
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const storeDtoList: StoreDto[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store`).then((response) =>
-//     response.json(),
-//   );
-//   const paths = storeDtoList.map((storeDto) => ({ params: { id: String(storeDto.id) } }));
-//   return { paths, fallback: true };
-// };
+export const getStaticPaths: GetStaticPaths = async () => {
+  const storeDtoList: StoreDto[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store`).then((response) =>
+    response.json(),
+  );
+  const paths = storeDtoList.map((storeDto) => ({ params: { id: String(storeDto.id) } }));
+  return { paths, fallback: true };
+};
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const storeDto = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store/${params?.id}`).then((response) =>
