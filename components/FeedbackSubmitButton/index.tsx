@@ -34,7 +34,7 @@ const FeedbackSubmitButton = ({
       // 새로운 피드백 추가
       const newFeedback = generateNewFeedback(text, new Date().getTime());
       setFeedbackList((feedbackList) => [newFeedback, ...feedbackList.slice(1)]);
-      addFeedback(newFeedback);
+      await addFeedback(newFeedback);
 
       setTimeout(() => {
         // 0번째 index에 빈 피드백 추가
@@ -47,16 +47,6 @@ const FeedbackSubmitButton = ({
           setSecondsLeft((second) => second - 1);
         }, 1000);
       }, 0);
-
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/feedback`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ content: text }),
-      });
-
-      console.log(res);
     },
     [setFeedbackList, setNewFeedbackContent],
   );

@@ -5,6 +5,7 @@ export interface FeedbackDTO {
 }
 
 export interface Feedback {
+  id: number;
   content: string;
   timestamp: number;
 }
