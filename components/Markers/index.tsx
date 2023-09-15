@@ -4,17 +4,18 @@ import { MAP_KEY } from '@swr/useMap';
 import { STORE_KEY } from '@swr/useStores';
 import useCurrentStore, { CURRENT_STORE_KEY } from '@swr/useCurrentStore';
 import type { ImageIcon, NaverMap } from '@typings/map';
-import type { StoreDto } from '@typings/store';
+import type { Store } from '@typings/store';
 import Marker from '@components/Marker';
 
 const Markers = () => {
   const { data: map } = useSWR<NaverMap>(MAP_KEY);
-  const { data: stores } = useSWR<StoreDto[]>(STORE_KEY);
+  const { data: stores } = useSWR<Store[]>(STORE_KEY);
 
-  const { data: currentStore } = useSWR<StoreDto>(CURRENT_STORE_KEY);
+  const { data: currentStore } = useSWR<Store>(CURRENT_STORE_KEY);
   const { initializeCurrentStore, clearCurrentStore } = useCurrentStore();
 
   if (!map || !stores) return null;
+
   return (
     <>
       {stores.map((store) => {
@@ -26,7 +27,7 @@ const Markers = () => {
             onClick={() => {
               initializeCurrentStore(store);
             }}
-            key={store.nid}
+            key={store.id}
           />
         );
       })}
@@ -36,7 +37,7 @@ const Markers = () => {
           coordinates={currentStore.coordinates}
           icon={generateStoreMarkerIcon(currentStore.season, true)}
           onClick={clearCurrentStore}
-          key={currentStore.nid}
+          key={currentStore.id}
         />
       )}
     </>

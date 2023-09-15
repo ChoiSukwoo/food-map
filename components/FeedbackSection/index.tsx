@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FeedbackDTO } from '@typings/feedback';
+import { Feedback } from '@typings/feedback';
 import useInput from '../../hooks/useInput';
 import FeedbackSubmitButton from '@components/FeedbackSubmitButton';
 import FeedbackBoard from '@components/FeedbackBoard';
@@ -7,14 +7,14 @@ import { generateNewFeedback, MAX_CONTENT_LENGTH, SNAIL_SIDE_LENGTH } from '@uti
 import FeedbackBoardContainer from '@components/FeedbackBoardContainer';
 
 interface Props {
-  initialFeedbackList: FeedbackDTO[];
+  initialFeedbackList: Feedback[];
 }
 
 const FeedbackSection = ({ initialFeedbackList }: Props): React.ReactElement => {
   // 전체 피드백 리스트
   // NOTE: index 0은 Input을 위한 공간이므로 빈 feedback으로 채운다.
   // NOTE: index 1부터 initialFeedbackList로 채우고, 남는 공간은 빈 feedback으로 채운다.
-  const [feedbackList, setFeedbackList] = useState<FeedbackDTO[]>(() => [
+  const [feedbackList, setFeedbackList] = useState<Feedback[]>(() => [
     generateNewFeedback('', 0),
     ...initialFeedbackList,
     ...Array(Math.max(SNAIL_SIDE_LENGTH ** 2 - initialFeedbackList.length - 1, 0))
@@ -48,7 +48,7 @@ const FeedbackSection = ({ initialFeedbackList }: Props): React.ReactElement => 
 export default FeedbackSection;
 
 interface FakeFeedbackBoardProps {
-  feedbackList: FeedbackDTO[];
+  feedbackList: Feedback[];
   showClones: boolean;
 }
 

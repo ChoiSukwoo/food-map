@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import useSWR from 'swr';
-import type { Coordinates } from '@typings/store';
+import type { LatLng } from '@typings/store';
 import { MAP_KEY } from '@swr/useMap';
 
-export const INITIAL_CENTER: Coordinates = [37.5262411, 126.99289439];
+export const INITIAL_CENTER: LatLng = [37.5262411, 126.99289439];
 export const INITIAL_ZOOM = 10;
 
 const useMapOptions = () => {
@@ -16,7 +16,7 @@ const useMapOptions = () => {
 
   const getMapOptions = useCallback(() => {
     const mapCenter = map.getCenter();
-    const center: Coordinates = [mapCenter.lat(), mapCenter.lng()];
+    const center: LatLng = [mapCenter.lat(), mapCenter.lng()];
     const zoom = map.getZoom();
 
     return { center, zoom };

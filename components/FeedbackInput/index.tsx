@@ -1,10 +1,10 @@
 import React, { ChangeEvent } from 'react';
-import type { FeedbackDTO } from '@typings/feedback';
+import type { Feedback } from '@typings/feedback';
 import { FEEDBACK_COLOR_SET, MAX_CONTENT_LENGTH } from '@utils/feedback';
 import { Item, Card, Text, TextLength } from './styles';
 
 interface Props {
-  Content: FeedbackDTO['content'];
+  Content: Feedback['content'];
   onChangeContent: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 

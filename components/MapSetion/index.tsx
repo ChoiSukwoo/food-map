@@ -6,7 +6,7 @@ import useMap from '@swr/useMap';
 import useCurrentStore from '@swr/useCurrentStore';
 import { INITIAL_CENTER, INITIAL_ZOOM } from '@hooks/useMapOptions';
 import type { NaverMap } from '@typings/map';
-import type { Coordinates } from '@typings/store';
+import type { LatLng } from '@typings/store';
 
 const MapSection = () => {
   /** url query 로부터 initial zoom, center 값 설정 */
@@ -18,7 +18,7 @@ const MapSection = () => {
   router.query.slag;
   const query = useMemo(() => new URLSearchParams(router.asPath.slice(1)), []); // eslint-disable-line react-hooks/exhaustive-deps
   const initialZoom = useMemo(() => (query.get('zoom') ? Number(query.get('zoom')) : INITIAL_ZOOM), [query]);
-  const initialCenter = useMemo<Coordinates>(
+  const initialCenter = useMemo<LatLng>(
     () =>
       query.get('lat') && query.get('lng') ? [Number(query.get('lat')), Number(query.get('lng'))] : INITIAL_CENTER,
     [query],

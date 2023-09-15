@@ -1,25 +1,24 @@
 import { Fragment, useEffect } from 'react';
 import { NextPage } from 'next';
+import { NextSeo } from 'next-seo';
 
-import { StoreDto } from '@typings/store';
+import { Store, StoreDto, storeDtoToStore } from '@typings/store';
 
 import MapSetion from '@components/MapSetion';
-
 import useStores from '@swr/useStores';
 import HomeHeader from '@components/HomeHeader';
 import DetailSection from '@components/DetailSection';
-import { NextSeo } from 'next-seo';
 
 interface Props {
-  stores: StoreDto[];
+  storeList: Store[];
 }
 
-const Home: NextPage<Props> = ({ stores }) => {
+const Home: NextPage<Props> = ({ storeList }) => {
   const { initializeStores } = useStores();
 
   useEffect(() => {
-    initializeStores(stores);
-  }, [initializeStores, stores]);
+    initializeStores(storeList);
+  }, [initializeStores, storeList]);
 
   return (
     <Fragment>
@@ -43,9 +42,13 @@ const Home: NextPage<Props> = ({ stores }) => {
 export default Home;
 
 export async function getStaticProps() {
-  const stores = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/stores`).then((response) => response.json());
+  const storeDtoList: StoreDto[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store`).then((response) =>
+    response.json(),
+  );
+
+  const storeList = storeDtoList.map((storeDto) => storeDtoToStore(storeDto));
 
   return {
-    props: { stores },
+    props: { storeList },
   };
 }

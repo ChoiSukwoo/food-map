@@ -3,11 +3,11 @@ import { useCallback } from 'react';
 import { ArrowButton, FlexRow, Header, ShareButton, Title } from './style';
 import { IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineShareAlt } from 'react-icons/ai';
-import type { StoreDto } from '@typings/store';
+import type { Store } from '@typings/store';
 import copy from 'copy-to-clipboard';
 
 interface Props {
-  currentStore?: StoreDto;
+  currentStore?: Store;
   expanded: boolean;
   onClickArrow: () => void;
 }
@@ -15,7 +15,7 @@ interface Props {
 const DetailHeader = ({ currentStore, expanded, onClickArrow }: Props) => {
   const shareEvent = useCallback(() => {
     if (currentStore) {
-      copy(location.origin + '/' + currentStore.name);
+      copy(location.origin + '/' + currentStore.id);
     }
   }, [currentStore]);
 

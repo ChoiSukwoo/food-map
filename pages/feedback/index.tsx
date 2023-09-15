@@ -5,10 +5,10 @@ import { NextSeo } from 'next-seo';
 import Header from '@components/Header';
 import FeedbackSection from '@components/FeedbackSection';
 
-import type { FeedbackDTO } from '@typings/feedback';
+import { FeedbackDtoToFeedback, type Feedback, type FeedbackDTO } from '@typings/feedback';
 
 interface Props {
-  feedbackList: FeedbackDTO[];
+  feedbackList: Feedback[];
 }
 
 export const FeedbackPage: NextPage<Props> = ({ feedbackList }) => {
@@ -40,9 +40,11 @@ export const FeedbackPage: NextPage<Props> = ({ feedbackList }) => {
 export default FeedbackPage;
 
 export async function getStaticProps() {
-  const feedbackList = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/feedback`).then((response) =>
+  const feedbackDtoList: FeedbackDTO[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/feedback`).then((response) =>
     response.json(),
   );
+
+  const feedbackList = feedbackDtoList.map((dto) => FeedbackDtoToFeedback(dto));
 
   return {
     props: { feedbackList },

@@ -1,10 +1,10 @@
 import React from 'react';
-import { FeedbackDTO } from '@typings/feedback';
+import { Feedback } from '@typings/feedback';
 import { SNAIL_SIDE_LENGTH, pickThemeByTimestamp } from '@utils/feedback';
 import { Card, Item, ShadowStyles, Text } from './styles';
 
 interface Props {
-  feedbackList: FeedbackDTO[];
+  feedbackList: Feedback[];
 }
 
 const FeedbackList = ({ feedbackList }: Props): React.ReactElement => {

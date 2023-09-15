@@ -4,11 +4,12 @@ import type { Marker } from '@typings/map';
 const Marker = ({ map, coordinates, icon, onClick }: Marker) => {
   useEffect(() => {
     let marker: naver.maps.Marker | null = null;
+
     if (map) {
       /** https://navermaps.github.io/maps.js.ncp/docs/tutorial-2-Marker.html */
       marker = new naver.maps.Marker({
         map: map,
-        position: new naver.maps.LatLng(...coordinates),
+        position: new naver.maps.LatLng(coordinates ? coordinates[0] : 0, coordinates ? coordinates[1] : 0),
         icon,
       });
     }

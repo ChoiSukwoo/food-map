@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import type { StoreDto } from '@typings/store';
+import type { Store } from '@typings/store';
 import Naver from 'public/images/naver.png';
 import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
 import { BasicInfoStyle, DescriptionStyle, DetailContentStyle, ImageStyle, MenusStyle } from './styles';
 
 type Props = {
-  currentStore?: StoreDto;
+  currentStore?: Store;
   expanded: boolean;
 };
 
@@ -14,7 +14,7 @@ const DetailContent = ({ currentStore, expanded }: Props) => {
   return (
     <DetailContentStyle className={`${expanded && 'expanded'}`}>
       <ImageStyle>
-        {currentStore.images.slice(0, 3).map((image) => (
+        {currentStore.images?.slice(0, 3).map((image) => (
           <div style={{ position: 'relative', maxWidth: 120, height: 80 }} key={image}>
             <Image
               src={image}
@@ -49,7 +49,7 @@ const DetailContent = ({ currentStore, expanded }: Props) => {
             <div className="naverUrl">
               <Image src={Naver} width={20} height={20} alt="" />
               <a
-                href={`https://pcmap.place.naver.com/restaurant/${currentStore.nid}/home`}
+                href={`https://pcmap.place.naver.com/restaurant/${currentStore.id}/home`}
                 target="_blank"
                 rel="noreferrer noopener"
               >

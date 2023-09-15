@@ -1,10 +1,10 @@
-import type { Coordinates } from './store';
+import type { LatLng } from '@typings/store';
 
 export type NaverMap = naver.maps.Map;
 
 export type Marker = {
   map: NaverMap;
-  coordinates: Coordinates;
+  coordinates: LatLng;
   icon: ImageIcon;
   onClick?: () => void;
 };

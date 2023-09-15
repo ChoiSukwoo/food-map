@@ -1,14 +1,14 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 
-import { StoreDto } from '@typings/store';
+import { Store, StoreDto, storeDtoToStore } from '@typings/store';
 import DetailHeader from '@components/DetailHeader';
 import DetailContent from '@components/DetailContent';
 import useCurrentStore from '@swr/useCurrentStore';
 import { NextSeo } from 'next-seo';
 
 interface Props {
-  store: StoreDto;
+  store: Store;
 }
 
 const StoreDetail: NextPage<Props> = ({ store }) => {
@@ -47,21 +47,25 @@ export default StoreDetail;
 
 /** https://nextjs.org/docs/basic-features/data-fetching/get-static-paths */
 export const getStaticPaths: GetStaticPaths = async () => {
-  const stores = (await import('public/json/stores.json')).default;
-  const paths = stores.map((store) => ({ params: { name: store.name } }));
+  const storeDtoList: StoreDto[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store`).then((response) =>
+    response.json(),
+  );
+  const paths = storeDtoList.map((storeDto) => ({ params: { id: String(storeDto.id) } }));
   return { paths, fallback: true };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const store = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/store/${params?.name}`).then((response) =>
+  const storeDto = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store/${params?.id}`).then((response) =>
     response.json(),
   );
 
-  if (!store) {
+  if (!storeDto) {
     return {
       notFound: true,
     };
   }
+
+  const store = storeDtoToStore(storeDto);
 
   return { props: { store } };
 };

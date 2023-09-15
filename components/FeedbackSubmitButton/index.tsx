@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import type { FeedbackDTO } from '@typings/feedback';
+import type { Feedback } from '@typings/feedback';
 import { generateNewFeedback, MAX_CONTENT_LENGTH } from '@utils/feedback';
 import { addFeedback } from 'service/feedback';
 import { SubmitButton } from './styles';
 
 interface Props {
-  newContent: FeedbackDTO['content'];
-  setContent: React.Dispatch<React.SetStateAction<FeedbackDTO['content']>>;
-  setFeedbackList: React.Dispatch<React.SetStateAction<FeedbackDTO[]>>;
+  newContent: Feedback['content'];
+  setContent: React.Dispatch<React.SetStateAction<Feedback['content']>>;
+  setFeedbackList: React.Dispatch<React.SetStateAction<Feedback[]>>;
 }
 
 const FeedbackSubmitButton = ({
@@ -26,7 +26,7 @@ const FeedbackSubmitButton = ({
   }, [secondsLeft]);
 
   const appendNewFeedback = useCallback(
-    (text: string) => {
+    async (text: string) => {
       if (timer.current !== null || text.trim().length === 0 || text.length > MAX_CONTENT_LENGTH) {
         return;
       }
@@ -42,11 +42,21 @@ const FeedbackSubmitButton = ({
         setNewFeedbackContent('');
 
         // disable timer 작동
-        setSecondsLeft(1);
+        setSecondsLeft(10);
         timer.current = setInterval(() => {
           setSecondsLeft((second) => second - 1);
-        }, 100);
+        }, 1000);
       }, 0);
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/feedback`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: text }),
+      });
+
+      console.log(res);
     },
     [setFeedbackList, setNewFeedbackContent],
   );

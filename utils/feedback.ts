@@ -1,4 +1,4 @@
-import type { FeedbackDTO } from '@typings/feedback';
+import type { Feedback, FeedbackDTO } from '@typings/feedback';
 import { type } from 'os';
 
 export const CARD_WIDTH = 200;
@@ -31,7 +31,7 @@ export const FEEDBACK_COLOR_SET = {
   },
 } as const;
 
-export const pickThemeByTimestamp = (timestamp: FeedbackDTO['timestamp']): keyof typeof FEEDBACK_COLOR_SET => {
+export const pickThemeByTimestamp = (timestamp: Feedback['timestamp']): keyof typeof FEEDBACK_COLOR_SET => {
   switch (timestamp % 4) {
     case 0:
       return 'yellow';
@@ -45,12 +45,10 @@ export const pickThemeByTimestamp = (timestamp: FeedbackDTO['timestamp']): keyof
   return 'yellow';
 };
 
-export const generateNewFeedback = (
-  content?: FeedbackDTO['content'],
-  timestamp?: FeedbackDTO['timestamp'],
-): FeedbackDTO => ({
+export const generateNewFeedback = (content?: Feedback['content'], timestamp?: Feedback['timestamp']): Feedback => ({
+  id: 0,
   content: content ?? '',
-  timestamp: timestamp ?? Math.floor(Math.random() * 10 ** 15),
+  timestamp: timestamp ?? Math.floor(Date.now() / 1000),
 });
 
 /**

@@ -1,12 +1,12 @@
 import React, { ChangeEvent } from 'react';
-import type { FeedbackDTO } from '@typings/feedback';
+import type { Feedback } from '@typings/feedback';
 import FeedbackList from '@components/FeedbackList';
 import FeedbackInput from '@components/FeedbackInput';
 import { DetailSectionStyle } from './styles';
 
 interface Props {
-  feedbackList: FeedbackDTO[];
-  feedbackContent?: FeedbackDTO['content'];
+  feedbackList: Feedback[];
+  feedbackContent?: Feedback['content'];
   onChangeContent?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
